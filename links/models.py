@@ -3,7 +3,7 @@ from users.models import Profile
 
 
 class LinkList(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=50, null=False)
     
     def __str__(self):
