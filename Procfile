@@ -1,1 +1,1 @@
-web: gunicorn link_me.wsgi
+web: gunicorn linkme.wsgi
