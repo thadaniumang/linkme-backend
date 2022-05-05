@@ -4,12 +4,12 @@ from .api import (
     UserAPI,
     LoginAPI,
     RegisterAPI,
-    ProfileViewSet,
+    GetProfileAPI,
 )
 from knox import views as knox_views
 
 router = routers.DefaultRouter()
-router.register('api/profile', ProfileViewSet, 'profiles')
+router.register('api/profile', GetProfileAPI, 'profiles')
 
 urlpatterns = [
     path('auth', include('knox.urls')),

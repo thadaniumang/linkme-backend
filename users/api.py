@@ -7,7 +7,9 @@ from .serializers import (
     RegisterSerializer,
     LoginSerializer,
     ProfileSerializer,
+    GenericProfileSerializer
 )
+from django.contrib.auth.models import User
 
 
 # Register API
@@ -68,14 +70,13 @@ class UserAPI(generics.RetrieveAPIView):
 
 
 # Profile API
-class ProfileViewSet(viewsets.ModelViewSet):
+class GetProfileAPI(viewsets.ModelViewSet):
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly,
     ]
-    serializer_class = ProfileSerializer
+    serializer_class = GenericProfileSerializer
 
     def get_queryset(self):
-        return Profile.objects.filter(user=self.request.user)
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        username = self.request.query_params["username"]
+        user = User.objects.get(username=username)
+        return Profile.objects.filter(user=user)

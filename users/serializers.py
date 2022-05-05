@@ -9,6 +9,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = "__all__"
+        
+        
+# Profile Serializer
+class GenericProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['title', 'headline']
 
 
 # User Serializer
