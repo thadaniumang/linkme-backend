@@ -88,10 +88,10 @@ class GetListCreator(generics.GenericAPIView):
     
     def get(self, request, list_id):
         try:
-            link_lists = LinkList.objects.filter(id=list_id)
+            link_lists = LinkList.objects.get(id=list_id)
                         
             return Response({
-                "username": link_lists[0].username
+                "username": link_lists.username
             }, status = status.HTTP_200_OK)
         except:
             return Response({
