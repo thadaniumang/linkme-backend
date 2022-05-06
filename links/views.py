@@ -55,7 +55,6 @@ class CreateNewList(generics.GenericAPIView):
         })
 
 
-# Create your views here.
 class GetLists(generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = LinkListSerializer
@@ -77,6 +76,23 @@ class GetLists(generics.GenericAPIView):
                 count += 1
             
             return Response(list_dict, status = status.HTTP_200_OK)
+        except:
+            return Response({
+                'message': 'Invalid Request'
+            }, status = status.HTTP_400_BAD_REQUEST)
+
+
+class GetListCreator(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    serializer_class = LinkListSerializer
+    
+    def get(self, request, list_id):
+        try:
+            link_lists = LinkList.objects.filter(id=list_id)
+                        
+            return Response({
+                "username": link_lists[0].username
+            }, status = status.HTTP_200_OK)
         except:
             return Response({
                 'message': 'Invalid Request'
