@@ -20,6 +20,7 @@ class GetLinks(generics.GenericAPIView):
             for link in links:
                 list_dict.update({
                     "{}".format(count): {
+                        "id": link.id,
                         "title": link.title,
                         "url": link.link
                     }
@@ -103,4 +104,25 @@ class CreateLinks(generics.GenericAPIView):
             'message': 'Created',
             'link': serializer.data
         })
-            
+
+
+class DeleteLink(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated, )
+    serializer_class = LinkSerializer
+    
+    def delete(self, request, link_id):
+        Links.objects.filter(id=link_id).delete()
+        return Response({
+            'message': 'Deleted'
+        })
+
+
+class DeleteList(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated, )
+    serializer_class = LinkListSerializer
+    
+    def delete(self, request, list_id):
+        LinkList.objects.filter(id=list_id).delete()
+        return Response({
+            'message': 'Deleted'
+        })
