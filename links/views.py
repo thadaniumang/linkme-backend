@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, status, views, permissions
 from rest_framework.response import Response
+from users.models import Profile
 from .models import LinkList, Links
 from .serializers import GetLinkSerializer, LinkListSerializer, LinkSerializer
 
@@ -89,9 +90,10 @@ class GetListCreator(generics.GenericAPIView):
     def get(self, request, list_id):
         try:
             link_lists = LinkList.objects.get(id=list_id)
-                        
+            profile = Profile.objects.get(id=link_lists.profile.id)
+            
             return Response({
-                "username": link_lists.username
+                "username": profile.user.username
             }, status = status.HTTP_200_OK)
         except:
             return Response({
