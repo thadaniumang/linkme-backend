@@ -129,10 +129,17 @@ class DeleteLink(generics.GenericAPIView):
     serializer_class = LinkSerializer
     
     def delete(self, request, link_id):
-        Links.objects.filter(id=link_id).delete()
-        return Response({
-            'message': 'Deleted'
-        })
+        # Links.objects.filter(id=link_id).delete()
+        link = Links.objects.filter(id=link_id)
+        if link[0].link_list.profile == request.user.profile:
+            link.delete()
+            return Response({
+                'message': 'Deleted'
+            }, status = status.HTTP_200_OK)
+        else:
+            return Response({
+                'message': 'You are not authorized to delete this item'
+            }, status = status.HTTP_400_BAD_REQUEST)
 
 
 class DeleteList(generics.GenericAPIView):
@@ -140,7 +147,13 @@ class DeleteList(generics.GenericAPIView):
     serializer_class = LinkListSerializer
     
     def delete(self, request, list_id):
-        LinkList.objects.filter(id=list_id).delete()
-        return Response({
-            'message': 'Deleted'
-        })
+        link_list = LinkList.objects.filter(id=list_id)
+        if link_list[0].profile == request.user.profile:
+            link_list.delete()
+            return Response({
+                'message': 'Deleted'
+            }, status = status.HTTP_200_OK)
+        else:
+            return Response({
+                'message': 'You are not authorized to delete this item'
+            }, status = status.HTTP_400_BAD_REQUEST)
