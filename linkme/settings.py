@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'knox',
-    'django_rest_passwordreset',
+    # 'django_rest_passwordreset',
     
     # Static Files
     'whitenoise.runserver_nostatic',
