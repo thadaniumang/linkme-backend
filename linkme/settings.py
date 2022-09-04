@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.railway.app']
 
 
 # Application definition
@@ -67,8 +67,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    # 'https://linkmeweb.netlify.app'
+    # 'http://localhost:3000',
+    'https://linkmeweb.netlify.app'
 ]
 
 REST_FRAMEWORK = {
@@ -99,15 +99,15 @@ WSGI_APPLICATION = 'linkme.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
-# DATABASES = {}
-# DATABASES['default'] = dj_database_url.config()
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
