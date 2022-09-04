@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'knox',
+    
+    # Static Files
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
